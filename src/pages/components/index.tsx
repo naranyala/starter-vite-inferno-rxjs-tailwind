@@ -7,11 +7,28 @@ class About extends Component {
   render() {
     // const { match, location, history } = this.props;
 
+    const filteredRoutes = routes
+      .filter((item) => {
+        return item.path.includes("/components/");
+      })
+      .map((item) => {
+        return {
+          link: item.path,
+          label: item.path.replace("/components/", ""),
+        };
+      });
+
     return (
       <div>
         <h1>Component Page</h1>
 
-        <pre>{JSON.stringify(routes, null, 2)}</pre>
+        <ul className="my-12">
+          {filteredRoutes.map((item) => (
+            <Link to={item.link} className="m-4 p-4 rounded-xl border-2">
+              {item.label}
+            </Link>
+          ))}
+        </ul>
       </div>
     );
   }
